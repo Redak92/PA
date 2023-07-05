@@ -49,6 +49,13 @@
                     ?>
                 </p>
             </div>
+			
+			<form method="post" action = "mailing/newsletter/add_address_newsletter.php"">
+
+	<input type = "email" name = "email" placeholder = "Entrez votre email">
+	<input type = "submit" value = "S'inscrire">
+	
+</form>
         </main>
 
         <footer class="footer">

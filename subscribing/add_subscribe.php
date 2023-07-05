@@ -21,7 +21,7 @@ function writeLogLine($success, $email){
 	$log = fopen('log.txt', 'a+');
 
 	// Construction de la ligne à ajouter ($line)
-	$line = date('Y/m/d - H:i:s') .  ($success) ? 'Inscription à l\'abonnement ' : 'Renouvellement de l\'abonnement'.' de' . $email . '"\n"';
+	$line = date('Y/m/d - H:i:s') .  ($success ? '  Inscription à l\'abonnement ' : '  Renouvellement de l\'abonnement').' de ' . $email . "\n";
 
 	// Ajout de la ligne au flux ouvert (fputs)
 	fputs($log, $line);
