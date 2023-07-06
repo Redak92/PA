@@ -50,7 +50,9 @@
 <body> 
 <div class="container">                
     <div class="barre_blog">
-    <?php include('includes/header.php'); ?></div>
+    <?php 
+	$title = "Blog";
+	include('includes/header.php'); ?></div>
 
         <div class="row mb-3">
         <!-- BARRE DE RECHERCHE -->
@@ -100,16 +102,14 @@
         <?php
         try {
             // Connexion à la base de données
-            $bdd = new PDO('mysql:host=localhost;dbname=devweb2023', 'root', 'root', [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-            ]);
+            include("includes/db.php");
 
             // Récupération du terme de recherche saisi par l'utilisateur
             $searchTerm = $_GET['query'];
             $categorie = $_GET['categorie'];
 
             // Requête pour récupérer les articles correspondants au terme de recherche et à la catégorie
-            $query = "SELECT titre, categorie, corps_de_texte, image FROM post_article WHERE 1";
+            $query = "SELECT titre, categorie, corps_de_texte, image FROM article_post WHERE 1";
 
             if (!empty($searchTerm)) {
                 $query .= " AND (titre LIKE '%$searchTerm%' OR categorie LIKE '%$searchTerm%' OR corps_de_texte LIKE '%$searchTerm%')";
