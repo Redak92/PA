@@ -31,12 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insertQuery = "UPDATE users SET image = :image WHERE email = :email";
     $req = $bdd->prepare($insertQuery);
     $result = $req->execute([
-        'image' => isset($filename) ? $filename : '',
+        'image' => $fileName,
         'email' => $email
     ]);
 
+
+
     if ($result) {
-        echo 'Avatar enregistré avec succès.';
+        header('location:profile.php?message=Avatar enregistré avec succès.');
+        exit;
 
         // Rafraîchir la variable de session avec le nouveau chemin de l'image
         $_SESSION['image'] = $destinationPath;
