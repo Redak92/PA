@@ -46,7 +46,7 @@ if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 include('includes/db.php');
 
 // Requete préparée de type SELECT
-$q = 'SELECT id FROM users WHERE email = :email AND mdp = :mdp';
+$q = 'SELECT id,is_valid,role FROM users WHERE email = :email AND mdp = :mdp';
 
 // Préparation de la requete
 $req = $bdd->prepare($q);
@@ -71,6 +71,13 @@ if(empty($results)){
 
 // Si on arrive ici,c'est que les identifiants sont corrects...
 
+if($results[0]['is_valid'] != 1){
+	
+	header("location: connexion.php?message=Le compte n'a pas été validé&type=danger");
+	exit;
+	
+	
+}
 
 // Ecriture d'une ligne dans le fichier log
 writeLogLine(true, $_POST['email']);
@@ -82,6 +89,10 @@ writeLogLine(true, $_POST['email']);
 session_start();
 // Ajout d'une valeur dans la session
 $_SESSION['email'] = $_POST['email'];
+
+$_SESSION['role'] = $results[0]['role'];
+
+
 
 // redirection vers la page d'accueil
 header('location: index.php');

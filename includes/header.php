@@ -1,5 +1,29 @@
+<?php
 
+if(isset($_SESSION['email'])){
+	
 
+include("db.php");
+
+$q = $bdd -> prepare('SELECT * FROM user_has_subscribing WHERE email = ?');
+
+$q -> execute([$_SESSION['email']]);
+
+$data = $q ->fetchAll();
+
+if($q -> rowCount() == 0){
+	echo "Vous n'êtes pas abonné";
+	
+
+}else if( strtotime($data[0]['date_fin']) < strtotime(Date("Y-m-d"))){
+	echo "Votre abonnement a expiré";
+}else{
+	echo "Vous êtes connecté";
+}
+	
+}
+
+?>
 
 
 <header class="mb-4">
@@ -19,7 +43,6 @@
 			
 	        <?php if(!isset($_SESSION['email'])){
 				echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Connexion' ? 'active' : '') . '" href="connexion.php">Connexion</a></li>';
-				echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Inscription' ? 'active' : '') . '" href="inscription.php">Inscription</a></li>';
 			}else{
 				echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Administration' ? 'active' : '') . '" href="users.php">Administration</a></li>';
 				echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Mon profil' ? 'active' : '') . '" href="profile.php">Mon profil</a></li>';

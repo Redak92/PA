@@ -3,7 +3,10 @@
 	<?php 
 	$title = 'Inscription';
 	include('includes/head.php');
+
 	?>
+		<script defer src = "js/arial.js"> </script>
+
 	<body>
 
 		<?php include('includes/header.php'); ?>
@@ -24,8 +27,11 @@
 						<input id="inputPrenom" class="form-control" type="text" name="prenom" placeholder="Votre prénom">
 					</div>
 					<div class="mb-3">
-						<label for="inputAge" class="form-label">Âge</label>
-						<input id="inputAge" class="form-control" type="number" name="age" placeholder="Votre âge">
+						<!--<label for="inputAge" class="form-label">Âge</label>
+						<input id="inputAge" class="form-control" type="number" name="age" placeholder="Votre âge">-->
+						<label for="date_naissance">Date de naissance :</label>
+					    <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+
 					</div>
 					<div class="mb-3">
 						<label for="inputSexe" class="form-label">Sexe</label>
@@ -49,7 +55,7 @@
 						<div id="FileHelp" class="form-text">2Mo maximum.</div>
 					</div>
 					<div class="mb-3">
-						<button type="submit" class="btn btn-primary">S'inscrire</button>
+						<button type="submit" id ="bouton" class="btn btn-primary">S'inscrire</button>
 					</div>
 				</form>
 

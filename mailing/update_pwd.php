@@ -48,5 +48,5 @@ $last = $bdd -> prepare("UPDATE users SET confirm_key=? WHERE email=?");
 $last->execute([$key,$user['email']]);
 
 
-header("location: ../index.php");
+header("location: ../connexion.php?message=Le mot de passe a bien été réinitialisé&type=success");
 exit;

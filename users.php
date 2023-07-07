@@ -382,6 +382,8 @@ if ($user && $user['role'] === 'admin') {
                 </script>
 
             </div>
+			
+			<a href = "mailing/newsletter/form_send.php" > Newsletter </a>
         </main>
 
         <?php include('includes/footer.php'); ?>

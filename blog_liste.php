@@ -7,7 +7,7 @@ if(!isset($_SESSION['email'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<div class="background-image">
+<div class="blog_liste_background-image">
 
     <head>
         <meta charset="UTF-8">
