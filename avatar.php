@@ -31,7 +31,9 @@
         </style>
     </head>
     <header>
-        <?php include('includes/header.php') ?>
+        <?php
+		$title = "Avatar";
+		include('includes/header.php') ?>
     </header>
     <div class="container">
     <body>

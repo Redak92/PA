@@ -46,7 +46,7 @@ if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 include('includes/db.php');
 
 // Requete préparée de type SELECT
-$q = 'SELECT id,is_valid FROM users WHERE email = :email AND mdp = :mdp';
+$q = 'SELECT id,is_valid,role FROM users WHERE email = :email AND mdp = :mdp';
 
 // Préparation de la requete
 $req = $bdd->prepare($q);
@@ -89,6 +89,10 @@ writeLogLine(true, $_POST['email']);
 session_start();
 // Ajout d'une valeur dans la session
 $_SESSION['email'] = $_POST['email'];
+
+$_SESSION['role'] = $results[0]['role'];
+
+
 
 // redirection vers la page d'accueil
 header('location: index.php');

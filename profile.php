@@ -48,10 +48,10 @@ include('includes/head.php');
                     <?php
                     // Chemin complet du fichier
 
-                    $filePath = 'uploads/' . $fileName;
+                    //$filePath = 'uploads/' . $fileName;
 
                     // Lecture du fichier et vérification des erreurs
-                    $fileContent = file_get_contents($filePath);
+                   // $fileContent = file_get_contents($filePath);
                     ?>
                 </div>
                 <div class="col-lg-12">
