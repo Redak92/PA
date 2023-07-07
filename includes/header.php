@@ -1,3 +1,31 @@
+<?php
+
+if(isset($_SESSION['email'])){
+	
+
+include("db.php");
+
+$q = $bdd -> prepare('SELECT * FROM user_has_subscribing WHERE email = ?');
+
+$q -> execute([$_SESSION['email']]);
+
+$data = $q ->fetchAll();
+
+if($q -> rowCount() == 0){
+	echo "Vous n'êtes pas abonné";
+	
+
+}else if( strtotime($data[0]['date_fin']) < strtotime(Date("Y-m-d"))){
+	echo "Votre abonnement a expiré";
+}else{
+	echo "Vous êtes connecté";
+}
+	
+}
+
+?>
+
+
 <header class="mb-4">
 	<nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
 	<div class="container">
