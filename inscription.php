@@ -30,7 +30,7 @@
 						<!--<label for="inputAge" class="form-label">Âge</label>
 						<input id="inputAge" class="form-control" type="number" name="age" placeholder="Votre âge">-->
 						<label for="date_naissance">Date de naissance :</label>
-					    <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+					    <input type="number" class="form-control" id="date_naissance" name="age" required>
 
 					</div>
 					<div class="mb-3">

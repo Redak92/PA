@@ -41,7 +41,7 @@ include('includes/head.php');
                     <p>Nom : <?= $user['nom'] ?></p>
                     <p>Prénom : <?= $user['prenom'] ?></p>
                     <p>Rôle : <?= $user['role'] ?></p>
-                    <p>Date de naissance : <?= date_format(date_create_from_format('Ymd', $user['age']), 'd/m/Y') ?></p>
+                    <p>Date de naissance : <?= $user['age']  ?></p>
                 </div>
                 <div class="col-lg-4">
                     <h2>Adresse de facturation</h2>
