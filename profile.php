@@ -181,4 +181,7 @@ include('includes/head.php');
         }
     </script>
 </body>
+<footer> 
+        <?php include('includes/footer.php') ?>
+</footer>
 <html>
