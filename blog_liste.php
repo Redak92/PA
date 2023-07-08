@@ -7,7 +7,7 @@ if(!isset($_SESSION['email'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<div class="blog_liste_background-image">
+<div class="background-image">
 
     <head>
         <meta charset="UTF-8">
@@ -139,7 +139,7 @@ if(!isset($_SESSION['email'])){
 
             
                     echo '<h2><a href="article.php?id_article=' . $article['id_article'] . '">' . $article['titre'] . '</a></h2>';
-            
+
                     // Récupération des 15 premiers mots du corps de texte de l'article
                     $corpsDeTexte = $article['corps_de_texte'];
                     $mots = explode(' ', $corpsDeTexte);

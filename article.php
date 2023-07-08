@@ -6,7 +6,7 @@ if(!isset($_SESSION['email'])){
 }
 ?>
 <?php
-        echo '<div class="background-image">';
+        echo '<div class="article_background-image">';
 
 //var_dump($_SESSION['email']);
 include('includes/db.php');
@@ -52,7 +52,7 @@ if (isset($_GET['id_article'])) {
             color : white;
         }
 
-        .background-image {
+        .article_background-image {
             background-image: url('imagerie/pexels-victor-freitas-949131.jpg');
             background-repeat: no-repeat;
             background-size: cover;
@@ -63,6 +63,34 @@ if (isset($_GET['id_article'])) {
             background-repeat: no-repeat;
             background-size: cover;
         }
+
+        .comment_container {
+            background-color: rgba(0, 0, 0, 0.5);
+            width : 30em;
+            display: flex;
+            align-items: flex-start; /* Alignement vertical en haut */
+            gap: 10px; /* Espacement entre les éléments */
+            margin-right : auto;
+            margin-bottom : 5px;
+          }
+          
+          .img_box {
+            display: flex;
+
+          }
+          
+          .text_box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1px;
+          }
+          
+          .text_box p {
+            margin: 0;
+          }
+
     </style>";
         //la page affichée
 
@@ -116,39 +144,34 @@ if (isset($_GET['id_article'])) {
                             $commentText = $commentaire['commentaire'];
                             $commentDate = $commentaire['date'];
                             $idCommentateur = $commentaire['id_commentateur'];
-
-                            // Requête pour récupérer l'email de l'utilisateur correspondant à l'id_commentateur
-                            $queryUser = "SELECT email FROM users WHERE id = :id_commentateur";
+                        
+                            // Requête pour récupérer les informations de l'utilisateur
+                            $queryUser = "SELECT id, image, email FROM users WHERE id = :id_commentateur";
                             $stmtUser = $bdd->prepare($queryUser);
                             $stmtUser->bindParam(':id_commentateur', $idCommentateur);
                             $stmtUser->execute();
                             $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
-
+                        
                             if ($user) {
+                                $commentateurId = $user['id'];
                                 $emailCommentateur = $user['email'];
-                            } else {
-                                $emailCommentateur = 'Utilisateur inconnu';
+                                $avatarFilename = $user['image']; // Nom du fichier d'image
+                                $avatarPath = 'uploads/' . $avatarFilename; // Chemin d'accès à l'avatar
+                                
+                                echo '<div class="container">';
+                                    echo '<div class="comment_container">';
+                                        echo '<div class="img_box">';
+                                            echo "<img src='$avatarPath' alt='Avatar du commentateur' width='50' height='50'>";
+                                        echo '</div>';  
+                                        echo '<div class="text_box">';  
+                                            echo "<p>$commentText </p>";
+                                            echo "<p style='display : flex; justify-content: space-between' ><em>par <a href='outer_profile.php?user_id=$commentateurId'>$emailCommentateur</a></em><em style='margin-right: 15px'>$commentDate</em></p>";
+                                        echo'</div>';
+                                    echo '</div>';
+                                echo '</div>';
                             }
-
-                            echo 
-                            '<style>
-                                .comment_container {
-                                    background-color : lightgrey;
-                                    max-width: 500px;
-                                    margin-left : 70px;
-                                    border-radius : ;
-                                    border: black; 
-                                }
-
-                            </style>';
-
-                            echo '<div class="comment_container">';
-                                echo "<p>Commentaire #$commentId (le $commentDate) :</p>";
-                                echo "<p>$commentText</p>";
-                                echo "<p style='justify-content: right'><em>par $emailCommentateur</p>";
-                            echo '</div>';
-                        }
-                    } else {
+                        } }
+                        else {
                         echo "Aucun commentaire pour cet article.";
                     }
 
