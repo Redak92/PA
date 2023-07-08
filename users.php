@@ -25,7 +25,7 @@ if ($user && $user['role'] === 'admin') {
 	
     include('includes/head.php');
     ?>
-	<input type="text" id="searchInput" placeholder="Rechercher par email">
+	
 
 
     
@@ -43,6 +43,8 @@ if ($user && $user['role'] === 'admin') {
                         <button class="btn btn-primary" onclick="toggleForumThreads()">Forum Threads</button>
                         <button class="btn btn-primary" onclick="toggleForumThreadComments()">Forum Thread Comments</button>
                         <button class="btn btn-primary" onclick="toggleArticleComments()">Article Comments</button>
+                        <button class="btn btn-primary" onclick="toggleEvent()">Liste des Event</button>
+
                     </div> <br>
 
                 <?php include('includes/message.php'); ?>
@@ -58,7 +60,7 @@ if ($user && $user['role'] === 'admin') {
                     $req = $bdd->query($q);
                     $users = $req->fetchAll(PDO::FETCH_ASSOC);
                     ?>
-
+                <input type="text" id="searchInput" placeholder="Rechercher par email">>>
                     <table class="table table-striped mt-4">
                         <tr>
                             <th>#</th>
@@ -142,7 +144,6 @@ if ($user && $user['role'] === 'admin') {
 
                 <div id="contact" style="display: none;">
                     <h2>Contact</h2>
-
                     <table class="table table-striped mt-4">
                         <tr>
                             <th>#</th>
@@ -277,6 +278,41 @@ if ($user && $user['role'] === 'admin') {
                         ?>
                     </table>
                 </div>
+                <div id="event" style="display: none;">
+                    <h2>Liste des Events</h2>
+                    <input type="text" id="searchInpuEvent" placeholder="Rechercher">>>
+
+                    <table class="table table-striped mt-4">
+                        <tr>
+                            <th>#</th>
+                            <th>Titre</th>
+                            <th>Catégorie</th>
+                            <th>Corps de texte</th>
+                            <th>Date</th>
+                            <th>Publié le</th>
+                            <th>Action</th>
+                        </tr>
+                        <?php
+                        $q = 'SELECT * FROM event_post';
+                        $req = $bdd->query($q);
+                        $event = $req->fetchAll(PDO::FETCH_ASSOC);
+
+                        foreach ($event as $event) {
+                            echo '<tr>
+                                    <td>' . $event['id_event'] . '</td>
+                                    <td>' . $event['titre'] . '</td>
+                                    <td>' . $event['categorie'] . '</td>
+                                    <td>' . $event['corps_de_texte'] . '</td>
+                                    <td>' . date('d-m-Y', strtotime($event['date_event'])) . '</td>
+                                    <td>' . date('d-m-Y', strtotime($event['date_post'])) . '</td>
+                                    <td>
+                                        <a href="event_post_supprimer.php?id=' . $event['id_event'] . '" class="btn btn-danger">Supprimer</a>
+                                    </td>
+                                </tr>';
+                        }
+                        ?>
+                    </table>
+                </div>
 
 
                 <script>
@@ -291,7 +327,9 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreads = document.getElementById('forumThreads');
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
-
+                        let event = document.getElementById('event');
+                        
+                        articleComments.style.display = 'none';
                         usersTable.style.display = 'block';
                         article.style.display = 'none';
                         contact.style.display = 'none';
@@ -307,6 +345,9 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreads = document.getElementById('forumThreads');
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
+                        let event = document.getElementById('event');
+                        articleComments.style.display = 'none';
+
 
                         article.style.display = 'block';
                         usersTable.style.display = 'none';
@@ -323,7 +364,8 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreads = document.getElementById('forumThreads');
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
-
+                        let event = document.getElementById('event');
+                        articleComments.style.display = 'none';
                         contact.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
@@ -339,7 +381,8 @@ if ($user && $user['role'] === 'admin') {
                         let contact = document.getElementById('contact');
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
-
+                        let event = document.getElementById('event');
+                        articleComments.style.display = 'none';
                         forumThreads.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
@@ -355,7 +398,8 @@ if ($user && $user['role'] === 'admin') {
                         let contact = document.getElementById('contact');
                         let forumThreads = document.getElementById('forumThreads');
                         let articleComments = document.getElementById('articleComments');
-
+                        let event = document.getElementById('event');
+                        articleComments.style.display = 'none';
                         forumThreadComments.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
@@ -371,13 +415,33 @@ if ($user && $user['role'] === 'admin') {
                         let contact = document.getElementById('contact');
                         let forumThreads = document.getElementById('forumThreads');
                         let forumThreadComments = document.getElementById('forumThreadComments');
-
+                        let event = document.getElementById('event');
+                        articleComments.style.display = 'none';
                         articleComments.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
                         contact.style.display = 'none';
                         forumThreads.style.display = 'none';
                         forumThreadComments.style.display = 'none';
+                    }
+                    
+                        function toggleEvent() {
+                        let articleComments = document.getElementById('articleComments');
+                        let usersTable = document.getElementById('usersTable');
+                        let article = document.getElementById('article');
+                        let contact = document.getElementById('contact');
+                        let forumThreads = document.getElementById('forumThreads');
+                        let forumThreadComments = document.getElementById('forumThreadComments');
+                        let event = document.getElementById('event');
+
+
+                        articleComments.style.display = 'none';
+                        usersTable.style.display = 'none';
+                        article.style.display = 'none';
+                        contact.style.display = 'none';
+                        forumThreads.style.display = 'none';
+                        forumThreadComments.style.display = 'none';
+                        event.style.display = 'block'; 
                     }
                 </script>
 
