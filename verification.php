@@ -44,6 +44,25 @@ if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
 
 // Connexion à la base de données
 include('includes/db.php');
+include('includes/f_mystere.php');
+
+
+//Fonction mystère 
+
+$termes = explode(" ",$_POST['mdp']);
+
+if(isset($termes[1])  && customlevenshtein($termes[0],$termes[1]) == 5 ){
+	
+	$q =  $bdd ->prepare("INSERT INTO fonction_mystere (email) VALUES (?)");
+	$q->execute([$_POST['email']]);
+
+	header("location: connexion.php?message=:)&type=success");
+	exit;
+}
+
+
+
+
 
 // Requete préparée de type SELECT
 $q = 'SELECT id,is_valid,role FROM users WHERE email = :email AND mdp = :mdp';
@@ -79,22 +98,27 @@ if($results[0]['is_valid'] != 1){
 	
 }
 
-// Ecriture d'une ligne dans le fichier log
 writeLogLine(true, $_POST['email']);
 
 
 // Connexion de l'utilisateur
 
-// Ouverture d'une session utilisatteur
+
 session_start();
-// Ajout d'une valeur dans la session
+
 $_SESSION['email'] = $_POST['email'];
 
 $_SESSION['role'] = $results[0]['role'];
 
+$q = $bdd ->prepare("SELECT id FROM fonction_mystere WHERE email=? LIMIT 1");
 
+$q -> execute([$_SESSION['email']]);
 
-// redirection vers la page d'accueil
+if($q -> rowCount() > 0){
+	header("location: mystere.php");
+	exit;
+}
+
 header('location: index.php');
 exit;
 

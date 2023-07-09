@@ -23,5 +23,5 @@ foreach($data as $value){
 
 
 
-header("location: x../../index.php");
+header("location: ../../index.php");
 exit;
