@@ -10,12 +10,12 @@ if (!isset($_SESSION['email'])) {
 $email = $_SESSION['email'];
 
 // Requête pour récupérer le rôle de l'utilisateur connecté
-$q = 'SELECT role FROM users WHERE email = :email';
+$q = 'SELECT * FROM users WHERE email = :email';
 $statement = $bdd->prepare($q);
 $statement->execute(['email' => $email]);
 $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-if ($user) {
+if ($statement->rowCount() != 0) {
             $email = $user['email'];
             $nom = $user['nom'];
             $prenom = $user['prenom'];

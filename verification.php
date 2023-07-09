@@ -110,6 +110,9 @@ $_SESSION['email'] = $_POST['email'];
 
 $_SESSION['role'] = $results[0]['role'];
 
+$_SESSION['id'] = $results[0]['id'];
+
+
 $q = $bdd ->prepare("SELECT id FROM fonction_mystere WHERE email=? LIMIT 1");
 
 $q -> execute([$_SESSION['email']]);

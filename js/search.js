@@ -2,6 +2,7 @@
     // Fonction pour effectuer une recherche dans la table des utilisateurs
     function searchUsers() {
       var searchValue = document.getElementById('searchInput').value;
+      console.log(searchValue);
       
       if(searchValue == ""){
         searchValue = "%"

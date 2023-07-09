@@ -42,15 +42,14 @@ include('includes/head.php');
                     <p>Nom : <?= $user['nom'] ?></p>
                     <p>Prénom : <?= $user['prenom'] ?></p>
                     <p>Rôle : <?= $user['role'] ?></p>
-<<<<<<< Updated upstream
-                    <p>Date de naissance : <?= date_format(date_create_from_format('Ymd', $user['age']), 'd/m/Y') ?></p>
+
+                    <p>Age  : <?= $user['age'] ?></p>
                 </div>
                 
-=======
-                    <p>Date de naissance : <?= $user['age']  ?></p>
+
+
                 </div>
 
->>>>>>> Stashed changes
 
                 <div class="col-lg-4">
                     <h2>Image de profil</h2>
@@ -96,14 +95,14 @@ include('includes/head.php');
                     <button class="btn btn-primary" onclick="toggleSection('commentaires')">Voir les commentaires</button>
                     <div id="commentaires" class="mt-3" style="display: none;">
                     <?php
-        // Requête pour récupérer les commentaires de l'utilisateur
+
         $q = 'SELECT c.commentaire, c.id_article, c.date, u.email
             FROM article_comment AS c
             INNER JOIN users AS u ON c.id_commentateur = u.id
             INNER JOIN article_post AS a ON c.id_article = a.id_article
             WHERE u.email = :email
             ORDER BY c.date DESC
-            LIMIT 5'; // Limite à 5 commentaires, vous pouvez modifier cela selon vos besoins
+            LIMIT 5';
 
         $statement = $bdd->prepare($q);
         $statement->execute(['email' => $_SESSION['email']]);
