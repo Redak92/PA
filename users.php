@@ -1,4 +1,3 @@
-<script defer src="js/search.js"></script>
 <?php
 // Pour que la page ne soit accessible qu'aux admins
 session_start();
@@ -22,13 +21,13 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
 if ($user && $user['role'] === 'admin') {
     // L'utilisateur a le rôle d'administrateur, le contenu de la page est accessible
     $title = 'Administration';
-	
     include('includes/head.php');
     ?>
-	
 
-
-    
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">    
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
     
     <body>
 
@@ -60,7 +59,7 @@ if ($user && $user['role'] === 'admin') {
                     $req = $bdd->query($q);
                     $users = $req->fetchAll(PDO::FETCH_ASSOC);
                     ?>
-                <input type="text" id="searchInput" placeholder="Rechercher par email">
+
                     <table class="table table-striped mt-4">
                         <tr>
                             <th>#</th>
@@ -72,7 +71,6 @@ if ($user && $user['role'] === 'admin') {
                             <th>Email</th>
                             <th>Actions</th>
                         </tr>
-                    <tbody id="searchResults">
 
                         <?php
                         foreach ($users as $index => $user) {
@@ -92,7 +90,6 @@ if ($user && $user['role'] === 'admin') {
                               </tr>';
                         }
                         ?>
-                    </tbody>>
 
                     </table>
                 </div>
@@ -144,6 +141,7 @@ if ($user && $user['role'] === 'admin') {
 
                 <div id="contact" style="display: none;">
                     <h2>Contact</h2>
+
                     <table class="table table-striped mt-4">
                         <tr>
                             <th>#</th>
@@ -199,7 +197,6 @@ if ($user && $user['role'] === 'admin') {
                                     <td>' . $thread['id_thread'] . '</td>
                                     <td>' . $thread['titre'] . '</td>
                                     <td>' . $thread['commentaire_zero'] . '</td>
-                                    <td>' . $thread['author'] . '</td>
                                     <td>' . $thread['date_thread'] . '</td>
                                     <td>
                                         <a class="btn btn-primary" href="forum_thread_consulter.php?id=' . $thread['id_thread'] . '">Consulter</a>
@@ -278,9 +275,11 @@ if ($user && $user['role'] === 'admin') {
                         ?>
                     </table>
                 </div>
+
+
                 <div id="event" style="display: none;">
                     <h2>Liste des Events</h2>
-                    <input type="text" id="searchInpuEvent" placeholder="Rechercher">>>
+                    <input type="text" id="searchInputEvent" placeholder="Rechercher par titre">
 
                     <table class="table table-striped mt-4">
                         <tr>
@@ -328,8 +327,7 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
                         let event = document.getElementById('event');
-                        
-                        articleComments.style.display = 'none';
+
                         usersTable.style.display = 'block';
                         article.style.display = 'none';
                         contact.style.display = 'none';
@@ -346,7 +344,6 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
                         let event = document.getElementById('event');
-                        articleComments.style.display = 'none';
 
 
                         article.style.display = 'block';
@@ -355,6 +352,8 @@ if ($user && $user['role'] === 'admin') {
                         forumThreads.style.display = 'none';
                         forumThreadComments.style.display = 'none';
                         articleComments.style.display = 'none';
+                        event.style.display = 'none';
+
                     }
 
                     function toggleContact() {
@@ -365,13 +364,16 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
                         let event = document.getElementById('event');
-                        articleComments.style.display = 'none';
+
+
                         contact.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
                         forumThreads.style.display = 'none';
                         forumThreadComments.style.display = 'none';
                         articleComments.style.display = 'none';
+                        event.style.display = 'none'; 
+
                     }
 
                     function toggleForumThreads() {
@@ -382,13 +384,16 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let articleComments = document.getElementById('articleComments');
                         let event = document.getElementById('event');
-                        articleComments.style.display = 'none';
+
+
                         forumThreads.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
                         contact.style.display = 'none';
                         forumThreadComments.style.display = 'none';
                         articleComments.style.display = 'none';
+                        event.style.display = 'none'; 
+
                     }
 
                     function toggleForumThreadComments() {
@@ -399,13 +404,16 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreads = document.getElementById('forumThreads');
                         let articleComments = document.getElementById('articleComments');
                         let event = document.getElementById('event');
-                        articleComments.style.display = 'none';
+
+
                         forumThreadComments.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
                         contact.style.display = 'none';
                         forumThreads.style.display = 'none';
                         articleComments.style.display = 'none';
+                        event.style.display = 'none'; 
+
                     }
 
                     function toggleArticleComments() {
@@ -416,16 +424,18 @@ if ($user && $user['role'] === 'admin') {
                         let forumThreads = document.getElementById('forumThreads');
                         let forumThreadComments = document.getElementById('forumThreadComments');
                         let event = document.getElementById('event');
-                        articleComments.style.display = 'none';
+
+
                         articleComments.style.display = 'block';
                         usersTable.style.display = 'none';
                         article.style.display = 'none';
                         contact.style.display = 'none';
                         forumThreads.style.display = 'none';
                         forumThreadComments.style.display = 'none';
+                        event.style.display = 'none'; 
                     }
-                    
-                        function toggleEvent() {
+
+                    function toggleEvent() {
                         let articleComments = document.getElementById('articleComments');
                         let usersTable = document.getElementById('usersTable');
                         let article = document.getElementById('article');
@@ -444,10 +454,44 @@ if ($user && $user['role'] === 'admin') {
                         event.style.display = 'block'; 
                     }
                 </script>
+  <script>
+  $(document).ready(function() {
+  $('#searchInputEvent').on('input', function() {
+    var searchQuery = $(this).val();
+
+    $.ajax({
+      url: 'rechercher_event.php', // Votre page de recherche d'événements
+      method: 'GET',
+      data: { titre: searchQuery }, // Rechercher par titre d'événement
+      success: function(response) {
+    // Convertir la réponse en objet JSON
+    var data = JSON.parse(response);
+
+    // Effacer la table actuelle
+    $('table tbody').empty();
+
+    // Parcourir la réponse et ajouter chaque événement à la table
+    $.each(data, function(index, event) {
+      var row = $('<tr>');
+      row.append('<td>' + event.id_event + '</td>');
+      row.append('<td>' + event.titre + '</td>');
+      row.append('<td>' + event.categorie + '</td>');
+      row.append('<td>' + event.corps_de_texte + '</td>');
+      row.append('<td>' + event.date_event + '</td>');
+      row.append('<td>' + event.date_post + '</td>');
+      row.append('<td><a href="event_post_supprimer.php?id=' + event.id_event + '" class="btn btn-danger">Supprimer</a></td>');
+      $('table tbody').append(row);
+    });
+},
+      error: function(xhr, status, error) {
+        alert('Une erreur est survenue lors de la recherche.');
+      }
+    });
+  });
+});
+</script>
 
             </div>
-			
-			<a href = "mailing/newsletter/form_send.php" > Newsletter </a>
         </main>
 
         <?php include('includes/footer.php'); ?>

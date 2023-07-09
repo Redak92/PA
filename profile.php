@@ -20,9 +20,7 @@ include('includes/head.php');
     <main>
         <div class="container">
             <h1>Mon profil</h1>
-            <div class="mb-3">
-                <a href='user_modifier.php'>Modifier le profil</a>
-            </div>
+
 
             <?php include('includes/message.php'); ?>
 
@@ -37,20 +35,16 @@ include('includes/head.php');
             <div class="row">
                 <div class="col-lg-4">
                     <h2>Informations personnelles</h2>
+                    <div class="mb-3 col-6">
+                        <a href='userMod.php'>Modifier le profil</a>
+                    </div>
                     <p>Adresse e-mail : <?= $user['email'] ?></p>
                     <p>Nom : <?= $user['nom'] ?></p>
                     <p>Prénom : <?= $user['prenom'] ?></p>
                     <p>Rôle : <?= $user['role'] ?></p>
-                    <p>Date de naissance : <?= $user['age']  ?></p>
+                    <p>Date de naissance : <?= date_format(date_create_from_format('Ymd', $user['age']), 'd/m/Y') ?></p>
                 </div>
-                <div class="col-lg-4">
-                    <h2>Adresse de facturation</h2>
-                    <p>Adresse :</p>
-                    <p>Code Postale : </p>
-                    <p>Ville : </p>
-                    <p>Téléphone<p>
-
-                </div>
+                
 
                 <div class="col-lg-4">
                     <h2>Image de profil</h2>
