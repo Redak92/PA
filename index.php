@@ -1,4 +1,25 @@
-<?php session_start(); ?>
+<?php session_start();
+
+if(isset($_SESSION['email'])){
+
+
+include("includes/db.php");
+
+
+$q = $bdd->prepare("SELECT email FROM emails_newsletter WHERE email=?");
+
+$q -> execute([$_SESSION['email']]);
+
+if($q->rowCount() == 0){
+    $display = "block";
+}else{
+    $display = "None";
+}
+
+}else{
+    $display = "block   ";                          
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -248,8 +269,8 @@
  
                 </div>
                 <br><br><br><br><br><br>
-                <div class="line"></div> <br>
-                    <form method="post" action = "mailing/newsletter/add_address_newsletter.php">
+                <div class="line"  ></div> <br>
+                    <form method="post" action = "mailing/newsletter/add_address_newsletter.php" style = <?= '"display: ' . $display . ';">' ?>>
                         <input type = "email" name = "email" placeholder = "Entrez votre email">
                         <input type = "submit" value = "S'inscrire">
                     </form>
@@ -318,7 +339,7 @@
                 }
                 </style>
                 
-                <div id="myModal" class="modal">
+                <div id="myModal" class="modal" style = <?= '"display : ' . $display . ';">' ?>>
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <form id="emailForm" action="mailing/newsletter/add_address_newsletter.php" method="post">
@@ -335,10 +356,7 @@
                 // Sélectionner la boîte de dialogue modale
                 const modal = document.getElementById('myModal');
 
-                // Ouvrir la boîte de dialogue lorsque la page se charge
-                window.addEventListener('load', function() {
-                modal.style.display = 'block';
-                });
+
 
                 // Fermer la boîte de dialogue lorsque l'utilisateur clique sur la croix
                 const closeBtn = document.getElementsByClassName('close')[0];
@@ -373,7 +391,7 @@
                 }
                 });
 
-                // Fonction de validation d'e-mail simple (à améliorer selon vos besoins)
+
                 function isValidEmail(email) {
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return emailRegex.test(email);
