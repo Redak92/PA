@@ -6,8 +6,9 @@
 
 	?>
 		<script defer src = "js/arial.js"> </script>
+		<script defer src ="js/drag.js"> </script>
 
-	<body>
+	<body id = "">
 
 		<?php include('includes/header.php'); ?>
 
@@ -49,9 +50,9 @@
 						<input id="inputPassword" class="form-control" type="password" name="mdp" aria-describedby="passwordHelp">
 						<div id="passwordHelp" class="form-text">Le mot de passe doit faire entre 6 et 12 caractères.</div>
 					</div>
-					<div class="mb-3">
+					<div class="mb-3 dropZone">
 						<label for="inputFile" class="form-label">Image de profil</label>
-						<input id="inputFile" class="form-control" type="file" name="image" accept="image/jpeg, image/png, image/gif" aria-describedby="FileHelp">
+						<input id="inputFile  fileInput" class="form-control" type="file" name="image" accept="image/jpeg, image/png, image/gif" aria-describedby="FileHelp">
 						<div id="FileHelp" class="form-text">2Mo maximum.</div>
 					</div>
 					<div class="mb-3">

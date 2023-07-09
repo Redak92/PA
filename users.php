@@ -60,7 +60,7 @@ if ($user && $user['role'] === 'admin') {
                     $req = $bdd->query($q);
                     $users = $req->fetchAll(PDO::FETCH_ASSOC);
                     ?>
-                <input type="text" id="searchInput" placeholder="Rechercher par email">>>
+                <input type="text" id="searchInput" placeholder="Rechercher par email">
                     <table class="table table-striped mt-4">
                         <tr>
                             <th>#</th>
