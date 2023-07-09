@@ -44,7 +44,8 @@ if($q -> rowCount() == 0){
 	        <?php if(!isset($_SESSION['email'])){
 				echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Connexion' ? 'active' : '') . '" href="connexion.php">Connexion</a></li>';
 			}else{
-				echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Administration' ? 'active' : '') . '" href="users.php">Administration</a></li>';
+				if($_SESSION['role'] == 'admin'){
+					echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Administration' ? 'active' : '') . '" href="users.php">Administration</a></li>'; }
 				echo '<li class="nav-item"><a class="nav-link ' . ($title == 'Mon profil' ? 'active' : '') . '" href="profile.php">Mon profil</a></li>';
 				echo '<li class="nav-item"><a class="nav-link" href="deconnexion.php">Déconnexion</a></li>';
 				echo '<li class="nav-item"><a class="nav-link" href="forum.php">Forum</a></li>';

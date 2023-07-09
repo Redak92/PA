@@ -76,9 +76,9 @@
                 <div class="catgories">
                     <select name="categorie">
                         <option value="">Toutes les catégories</option>
-                        <option value="actualite" <?php if ($categorie === 'actualite') echo 'selected'; ?>>Actualité</option>
-                        <option value="nutrition" <?php if ($categorie === 'nutrition') echo 'selected'; ?>>Nutrition</option>
-                        <option value="exercice_physique" <?php if ($categorie === 'exercice_physique') echo 'selected'; ?>>Exercice Physique</option>
+                        <option value="actualite">Actualité</option>
+                        <option value="nutrition">Nutrition</option>
+                        <option value="exercice_physique">Exercice Physique</option>
                     </select>
                 
                 <input type="submit" value="Filtrer" style="display: inline-block; margin-right: 10px;" />
@@ -105,43 +105,49 @@
             include("includes/db.php");
 
             // Récupération du terme de recherche saisi par l'utilisateur
+            if(isset($_GET['query'])){
             $searchTerm = $_GET['query'];
-            $categorie = $_GET['categorie'];
-
+            }else{
+                $searchTerm = "%";
+            }
+            if(isset($_GET['categorie'])){
+                $categorie = $_GET['categorie'];
+            }else{
+                $categorie = "%";
+            }
             // Requête pour récupérer les articles correspondants au terme de recherche et à la catégorie
-            $query = "SELECT titre, categorie, corps_de_texte, image FROM article_post WHERE 1";
+            $query = 'SELECT * FROM article_post WHERE titre LIKE ? AND categorie LIKE ?';
+            
 
-            if (!empty($searchTerm)) {
-                $query .= " AND (titre LIKE '%$searchTerm%' OR categorie LIKE '%$searchTerm%' OR corps_de_texte LIKE '%$searchTerm%')";
-            }
-
-            if (!empty($categorie)) {
-                $query .= " AND categorie = :categorie";
-            }
 
             $stmt = $bdd->prepare($query);
 
-            if (!empty($categorie)) {
-                $stmt->bindParam(':categorie', $categorie);
-            }
+            $stmt->execute([$searchTerm,$categorie]);
+            
 
-            $stmt->execute();
-
+            
+            $stmt->execute([$searchTerm, $categorie]);
+            
             $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+
 
             // Affichage des résultats
             foreach ($articles as $article) {
                 echo '<div class="article-box">';
-                
+
                 if (!empty($article['image'])) {
-                    echo '<img src="' . $article['image'] . '" alt="Image de l\'article">';
+                    $image_path = 'uploads/' . $article['image'];
+                    
+
                 } else {
-                    echo '<div class="image-placeholder"></div>';
+                    $image_path = "uploads/default.png";
                 }
+                echo '<img src="uploads/' . $article['image'] . '" alt="Image de l\'article">';
 
                 //Afficher le lien vers les articles *en cours*
                 //echo "<h2>" . $article['titre'] . "</h2>";
-                echo '<h2><a href="article.php?id=' . $article['id'] . '">' . $article['titre'] . '</a></h2>';
+                echo '<h2><a href="article.php?id=' . $article['id_article'] . '">' . $article['titre'] . '</a></h2>';
 
                 // Récupération des 15 premiers mots du corps de texte de l'article
                 $corpsDeTexte = $article['corps_de_texte'];

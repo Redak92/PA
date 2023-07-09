@@ -197,6 +197,10 @@ if ($user && $user['role'] === 'admin') {
                                     <td>' . $thread['id_thread'] . '</td>
                                     <td>' . $thread['titre'] . '</td>
                                     <td>' . $thread['commentaire_zero'] . '</td>
+<<<<<<< Updated upstream
+=======
+                                    
+>>>>>>> Stashed changes
                                     <td>' . $thread['date_thread'] . '</td>
                                     <td>
                                         <a class="btn btn-primary" href="forum_thread_consulter.php?id=' . $thread['id_thread'] . '">Consulter</a>

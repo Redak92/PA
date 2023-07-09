@@ -30,7 +30,7 @@ if($_FILES['image']['error'] != 4) { // un fic a été envoyé
     $ext = end($array);
     $filename = 'image-'.time().'.'.$ext;
  
-    $destination = $filename;
+    $destination = 'uploads/' . $filename;
     $move = move_uploaded_file($from, $destination); //renvoie un booléen 
     if(!$move) {
         header('location:post_article_verification.php?message=erreur lors de l enregistrement de l image');
@@ -55,6 +55,8 @@ include('includes/db.php');
     $array = explode('.', $_FILES['image']['name']);
     $ext = end($array);
     $filename = 'image-' . time() . '.' . $ext;
+
+   
 
     // Requête SQL
     $q = 'INSERT INTO article_post (nom, prenom, titre, categorie, image, corps_de_texte) 

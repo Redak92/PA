@@ -28,7 +28,7 @@ if (isset($_GET['id_article'])) {
     if ($article) {
         $titre = $article['titre'];
         $corps_de_texte = $article['corps_de_texte'];
-        $image = $article['image'];
+        $image = 'uploads/' . $article['image'];
 
         // Affichage de l'article
         include('includes/header.php');
@@ -102,7 +102,7 @@ if (isset($_GET['id_article'])) {
             echo "<em> <a href='blog_liste.php'>Retour à la liste des sujets</a></em>";
             //structure du corps de texte
             //Image bannière
-            echo "<p>$image</p>";
+            echo "<img src = $image> </img>";
             echo '<div class="col-6">';
                 echo "<p>$corps_de_texte</p>";
             echo '</div>';

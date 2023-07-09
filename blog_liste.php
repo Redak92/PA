@@ -136,8 +136,8 @@ if (!isset($_SESSION['email'])) {
                         foreach ($articles as $article) {
                             echo '<div class="article-box">';
                                 echo '<a href="article.php?id_article=' . $article['id_article'] . '">';
-                                if (!empty($article['image']) && file_exists($article['image'])) {
-                                    echo '<img src="' . $article['image'] . '" alt="Image de l\'article">';
+                                if (!empty($article['image']) && file_exists('uploads/' . $article['image'])) {
+                                    echo '<img src="uploads/' . $article['image'] . '" alt="Image de l\'article">';
                                 } else {
                                     echo '<img src="imagerie/default_article_pic.jpg" alt="Image par défaut">';
                                 }

@@ -156,12 +156,13 @@ echo '<p><strong>Date de création :</strong> ' . $formattedCreationDate . '</p>
                         $stmtUser->bindParam(':id_commentateur', $commentateurId);
                         $stmtUser->execute();
                         $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
-                        if ($user) {
+                        if ($stmtUser -> rowCount() != 0) {
                             $emailCommentateur = $user['email'];
                             $avatarFilename = $user['image']; // Nom du fichier d'image
                             $avatarPath = 'uploads/' . $avatarFilename; // Chemin d'accès à l'avatar
                           
                         } else {
+                            $avatarPath = 'uploads/default.png';
                             $emailCommentateur = 'Utilisateur inconnu';
                         }
 
