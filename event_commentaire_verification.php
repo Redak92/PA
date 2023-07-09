@@ -12,11 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupération des données du formulaire
     $commentaire = $_POST['commentaire'];
     $id_event = $_POST['id_event'];
-    $id_commentateur = $_POST['id_user'];
-    var_dump($commentaire);
-var_dump($id_event);
-var_dump($id_commentateur);
-exit;
+    $id_commentateur = $_POST['id'];
+
 
     // Vérification si les champs ne sont pas vides
     if (!empty($commentaire) && !empty($id_event)) {

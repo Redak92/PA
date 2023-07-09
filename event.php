@@ -34,39 +34,39 @@
             echo '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
             ';
             echo "<style>
-            p, h1, h2 {
-                color : white;
-            }
+                        p, h1, h2 {
+                            color : white;
+                        }
 
-            a {
-                color : white
-            }
+                        a {
+                            color : white
+                        }
 
-            .container h1{
-                color : white;
-            }
+                        .container h1{
+                            color : white;
+                        }
 
-            .main {
-                min-height : 500px;
+                        .main {
+                            min-height : 500px;
 
-            }
+                        }
 
-            html p {
-                color : white;
-            }
+                        html p {
+                            color : white;
+                        }
 
-            .event_background-image {
-                background-image: url('imagerie/pexels-victor-freitas-949131.jpg');
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
+                        .event_background-image {
+                            background-image: url('imagerie/pexels-victor-freitas-949131.jpg');
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                        }
 
-            .header, .footer {
-                background-image: url('imagerie/pexels-victor-freitas-949131.jpg');
-                background-repeat: no-repeat;
-                background-size: cover;
-            }
-        </style>";
+                        .header, .footer {
+                            background-image: url('imagerie/pexels-victor-freitas-949131.jpg');
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                        }
+                    </style>";
             //la page affichée
 
             echo '<div class="container">';
@@ -90,6 +90,7 @@
     $stmtUser->bindParam(':email', $email);
     $stmtUser->execute();
     $user = $stmtUser->fetch(PDO::FETCH_ASSOC);
+
     
     if ($user) {
         $id_commentateur = $user['id'];
@@ -117,18 +118,8 @@
             echo '<input type="hidden" name="id_event" value="' . htmlspecialchars($eventId) . '">'; // Champ caché pour transmettre l'ID de l'événement
             echo '<button type="submit" class="btn btn-primary">S\'inscrire</button>';
             echo '</form>';
-        }
-    
-                
+        }               
                 echo '<main>';
-                
-
-                //Espace commentaire *en cours*
-                //écrire le fichier commentaire.php
-                //créer la table commentaires
-                    //clé étrangère de l'event pour les commentaires 
-                    //clé primaire 'id' pour chaque commentaire
-                
                 echo '<h2>Commentaires</h2>';
                 echo '
                     <form action="event_commentaire_verification.php" method="POST">
@@ -136,7 +127,10 @@
                             <label for="exampleFormControlTextarea1">Ecrire son commentaire</label><br>
                             <textarea class"form-control" id="commentaire" name="commentaire" rows="2" style="width : 50%"></textarea>
                             <input type="hidden" name="id_event" value="' . $event['id_event'] . '">
+                            <input type="hidden" name="id" value="' . $user['id'] . '">
                     </div>
+
+
                     <button type="submit" class="btn btn-success">Poster</button>
                     </form>
                 ';
